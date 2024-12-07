@@ -1,11 +1,24 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const PORT = 6001
-const app = express()
+import('./config/db.js')
+import authRouter from "./routes/authRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 
-app.use(bodyParser.json())
+const PORT = 6001;
+const app = express();
 
-app.listen(PORT, ()=>{
-  console.log('server started')
-})
+// middleware
+app.use(bodyParser.json());
+
+app.use('/api/auth', authRouter)
+app.use('/api/task', taskRoutes)
+
+
+app.listen(PORT, () => {
+    console.log(
+        'server started'
+    );
+});
+
+
